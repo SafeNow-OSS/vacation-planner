@@ -7,9 +7,7 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    read: ({ req }) => {
-      return !!req.user?.isAdmin
-    },
+    read: () => true, // Allow all users to read the data
   },
   fields: [
     {
@@ -17,6 +15,20 @@ export const Users: CollectionConfig = {
       type: 'checkbox',
       label: 'Admin',
       defaultValue: false,
+      admin: {
+        readOnly: true, // Make the field read-only in the admin panel
+      },
+      hooks: {
+        beforeChange: [
+          ({ data, originalDoc }) => {
+            // Prevent any changes to the isAdmin field
+            if (originalDoc?.isAdmin !== undefined) {
+              data.isAdmin = originalDoc.isAdmin
+            }
+            return data
+          },
+        ],
+      },
     },
   ],
 }
