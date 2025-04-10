@@ -8,6 +8,15 @@ export const VacationRequests: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'startDate',
+    components: {
+      views: {
+        edit: {
+          default : {
+            Component: '/components/DatePickerWithHolidays#DatePickerWithHolidays',
+          }
+        }
+      }
+    }
   },
   fields: [
     {
