@@ -14,15 +14,18 @@ interface DatePickerWithHolidaysProps {
     } | null,
   ) => void
   startDate?: Date | null // Optional start date prop
-  endDate?: Date | null   // Optional end date prop
+  endDate?: Date | null // Optional end date prop
 }
 
 export const DatePickerWithHolidays: React.FC<DatePickerWithHolidaysProps> = ({
   onRangeChange,
   startDate = null, // Default to null if not provided
-  endDate = null,   // Default to null if not provided
+  endDate = null, // Default to null if not provided
 }) => {
-  const [selectedRange, setSelectedRange] = useState<[Date | null, Date | null]>([startDate, endDate]) // Initialize with props
+  const [selectedRange, setSelectedRange] = useState<[Date | null, Date | null]>([
+    startDate,
+    endDate,
+  ]) // Initialize with props
   const [holidayDates, setHolidayDates] = useState<Date[]>([])
   const [holidaysLoaded, setHolidaysLoaded] = useState(false) // Track if holidays are loaded
 
@@ -63,7 +66,7 @@ export const DatePickerWithHolidays: React.FC<DatePickerWithHolidaysProps> = ({
 
   const calculateWorkingDays = (start: Date, end: Date) => {
     let count = 0
-    let currentDate = new Date(start)
+    const currentDate = new Date(start)
     while (currentDate <= end) {
       if (isWorkingDay(currentDate)) count++
       currentDate.setDate(currentDate.getDate() + 1)

@@ -1,9 +1,8 @@
-import { NextApiRequest } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { NextResponse } from 'next/server'
 
-export const POST = async function handler(req: NextApiRequest) {
+export const POST = async function handler() {
   const payload = await getPayload({ config })
 
   try {
