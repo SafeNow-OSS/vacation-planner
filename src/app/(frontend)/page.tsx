@@ -15,6 +15,10 @@ export default async function HomePage() {
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
+  const numberOfUsers = await payload.count({
+    collection: 'users',
+  })
+
   return (
     <div className="home">
       <div className="content">
@@ -27,6 +31,7 @@ export default async function HomePage() {
             width={65}
           />
         </picture>
+        <h1>{numberOfUsers.totalDocs} users</h1>
         {!user && <h1>Welcome to your new project.</h1>}
         {user && <h1>Welcome back, {user.email}</h1>}
         <div className="links">

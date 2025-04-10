@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'vacation-requests': VacationRequest;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +78,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'vacation-requests': VacationRequestsSelect<false> | VacationRequestsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -119,6 +121,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  isAdmin?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -151,6 +154,20 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacation-requests".
+ */
+export interface VacationRequest {
+  id: number;
+  requester: number | User;
+  startDate: string;
+  endDate: string;
+  reason?: string | null;
+  status: 'pending' | 'approved' | 'rejected';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -163,6 +180,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'vacation-requests';
+        value: number | VacationRequest;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -211,6 +232,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  isAdmin?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -238,6 +260,19 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vacation-requests_select".
+ */
+export interface VacationRequestsSelect<T extends boolean = true> {
+  requester?: T;
+  startDate?: T;
+  endDate?: T;
+  reason?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

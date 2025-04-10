@@ -6,8 +6,17 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email',
   },
   auth: true,
+  access: {
+    read: ({ req }) => {
+      return !!req.user?.isAdmin
+    },
+  },
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'isAdmin',
+      type: 'checkbox',
+      label: 'Admin',
+      defaultValue: false,
+    },
   ],
 }
