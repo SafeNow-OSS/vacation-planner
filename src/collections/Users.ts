@@ -24,6 +24,9 @@ export const Users: CollectionConfig = {
       label: 'Admin',
       defaultValue: false,
       access: {
+        create: ({ req }) => {
+          return !!req.user?.isAdmin
+        },
         update: ({ req, id }) => {
           return !!req.user?.isAdmin && req.user.id !== id
         },
