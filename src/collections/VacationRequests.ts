@@ -8,15 +8,18 @@ export const VacationRequests: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'startDate',
-    // components: {
-    //   views: {
-    //     edit: {
-    //       default: {
-    //         Component: '/components/CustomVacationRequestForm',
-    //       },
-    //     },
-    //   },
-    // },
+  },
+  access: {
+    read: ({ req: { user } }) => {
+      if (user?.isAdmin) {
+        return true // Admins can access all vacation requests
+      }
+      return {
+        requester: {
+          equals: user?.id, // Non-admins can only access their own vacation requests
+        },
+      }
+    },
   },
   fields: [
     {
@@ -34,22 +37,12 @@ export const VacationRequests: CollectionConfig = {
       type: 'date',
       label: 'Start Date',
       required: true,
-      admin: {
-        components: {
-          Field: {
-            path: '/components/CustomVacationRequestForm',
-          },
-        },
-      },
     },
     {
       name: 'endDate',
       type: 'date',
       label: 'End Date',
       required: true,
-      admin: {
-        hidden: true,
-      },
     },
     {
       name: 'reason',
