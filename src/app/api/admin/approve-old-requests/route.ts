@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import payload from 'payload'
+import { NextApiRequest } from 'next'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { NextResponse } from 'next/server'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' })
-  }
+export const POST = async function handler(req: NextApiRequest) {
+  const payload = await getPayload({ config })
 
   try {
     const tenDaysAgo = new Date()
@@ -36,11 +36,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await Promise.all(updatePromises)
 
-    res.status(200).json({
-      message: `${pendingRequests.docs.length} vacation requests have been approved.`,
-    })
+    return NextResponse.json(
+      { message: 'Vacation requests approved successfully' },
+      { status: 200 },
+    )
   } catch (error) {
     console.error('Error approving vacation requests:', error)
-    res.status(500).json({ message: 'Internal server error' })
+    return NextResponse.json(
+      { error: (error as Error).message || 'Internal Server Error' },
+      { status: 500 },
+    )
   }
 }

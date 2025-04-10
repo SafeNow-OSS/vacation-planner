@@ -1,5 +1,5 @@
 import payload from 'payload'
-import handler from '../app/payload/admin/approve-old-requests/route'
+import handler from '../app/api/admin/approve-old-requests/route'
 import { createMocks } from 'node-mocks-http'
 
 jest.mock('payload', () => ({
