@@ -2,36 +2,49 @@
   text-align: center;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background: linear-gradient(to right, salmon, blue); /* Gradient from salmon to blue */
   max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
 }
 
 .title {
   font-size: 1.5rem;
-  color: #333;
+  color: #222; /* Darker text for better contrast */
   margin-bottom: 10px;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #666;
+  color: #555; /* Slightly darker grey for better readability */
   margin-bottom: 20px;
 }
 
 .range-info {
   margin-top: 20px;
   font-size: 0.9rem;
-  color: #444;
+  color: #333; /* Consistent text color */
 }
 
 .holiday {
-  background-color: salmon !important;
+  background-color: #e74c3c !important; /* Vibrant red for holidays */
   color: white !important;
 }
 
 .non-working-day {
-  background-color: grey !important;
+  background-color: #95a5a6 !important; /* Softer grey for non-working days */
   color: white !important;
+}
+
+.selected-range-display {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #222; /* Consistent dark text */
+}
+
+.working-days-display {
+  font-weight: bold;
+  color: #3498db; /* Bright blue for emphasis */
+  margin-top: 10px;
 }

@@ -1,25 +1,35 @@
 'use client'
 
-import { useAllFormFields, useField } from '@payloadcms/ui'
+import React, { Suspense } from 'react'
+import { useField } from '@payloadcms/ui'
+import { DatePickerWithHolidays } from './DatePickerWithHolidays'
 
 const CustomVacationRequestForm = () => {
   const { value: startDateValue, setValue: setStartDateValue } = useField({ path: 'startDate' })
-  const { value: endDateValue, setValue: setendDateValue } = useField({ path: 'endDate' })
+  const { value: endDateValue, setValue: setEndDateValue } = useField({ path: 'endDate' })
+
+  const handleRangeChange = (rangeInfo: { startDate: Date | null; endDate: Date | null } | null) => {
+    if (rangeInfo) {
+      setStartDateValue(rangeInfo.startDate)
+      setEndDateValue(rangeInfo.endDate)
+    } else {
+      setStartDateValue(null)
+      setEndDateValue(null)
+    }
+  }
 
   return (
     <div>
-      <pre>{JSON.stringify({ startDateValue, endDateValue }, null, 2)}</pre>
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          setStartDateValue(new Date())
-          setendDateValue(new Date())
-        }}
-      >
-        SET TO NOW
-      </button>
+      <Suspense fallback={<div>Loading Vacation Request Form...</div>}>
+        <DatePickerWithHolidays
+          onRangeChange={handleRangeChange}
+          startDate={startDateValue ? new Date(Date.parse(startDateValue as string)) : null} // Handle null values
+          endDate={endDateValue ? new Date(Date.parse(endDateValue as string)) : null}     // Handle null values
+        />
+      </Suspense>
     </div>
   )
 }
 
 export default CustomVacationRequestForm
+
