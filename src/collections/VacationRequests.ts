@@ -37,12 +37,22 @@ export const VacationRequests: CollectionConfig = {
       type: 'date',
       label: 'Start Date',
       required: true,
+      admin: {
+        components: {
+          Field: {
+            path: '/components/CustomVacationRequestForm',
+          },
+        },
+      },
     },
     {
       name: 'endDate',
       type: 'date',
       label: 'End Date',
       required: true,
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'reason',
