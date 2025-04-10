@@ -8,15 +8,15 @@ export const VacationRequests: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'startDate',
-    components: {
-      views: {
-        edit: {
-          default : {
-            Component: '/components/DatePickerWithHolidays#DatePickerWithHolidays',
-          }
-        }
-      }
-    }
+    // components: {
+    //   views: {
+    //     edit: {
+    //       default: {
+    //         Component: '/components/CustomVacationRequestForm',
+    //       },
+    //     },
+    //   },
+    // },
   },
   fields: [
     {
@@ -34,12 +34,22 @@ export const VacationRequests: CollectionConfig = {
       type: 'date',
       label: 'Start Date',
       required: true,
+      admin: {
+        components: {
+          Field: {
+            path: '/components/CustomVacationRequestForm',
+          },
+        },
+      },
     },
     {
       name: 'endDate',
       type: 'date',
       label: 'End Date',
       required: true,
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'reason',

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useField, DateTimeField, useAllFormFields } from '@payloadcms/ui'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Holidays from 'date-holidays'
@@ -21,6 +22,8 @@ export const DatePickerWithHolidays: React.FC<DatePickerWithHolidaysProps> = ({
 }) => {
   const [selectedRange, setSelectedRange] = useState<[Date | null, Date | null]>([null, null])
   const [holidayDates, setHolidayDates] = useState<Date[]>([])
+  const { value, setValue } = useField({ path: 'startDate' })
+  const allFF = useAllFormFields()
 
   useEffect(() => {
     const hd = new Holidays('DE', 'BY')
@@ -79,6 +82,9 @@ export const DatePickerWithHolidays: React.FC<DatePickerWithHolidaysProps> = ({
 
   return (
     <div className="date-picker-container">
+      <DateTimeField path="startDate" field={{ name: 'Start' }} />
+      <pre>{JSON.stringify({ allFF, value }, null, 2)}</pre>
+
       <DatePicker
         selected={selectedRange[0]}
         onChange={handleRangeChange}

@@ -1,5 +1,5 @@
-import { DatePickerWithHolidays as DatePickerWithHolidays_2e6005377d9cef2f09faf602db285bfd } from '../../components/DatePickerWithHolidays'
+import { default as default_7abbbd0974c2b24c049eb7679631510a } from '../../../components/CustomVacationRequestForm'
 
 export const importMap = {
-  "/components/DatePickerWithHolidays#DatePickerWithHolidays": DatePickerWithHolidays_2e6005377d9cef2f09faf602db285bfd
+  "/components/CustomVacationRequestForm#default": default_7abbbd0974c2b24c049eb7679631510a
 }
