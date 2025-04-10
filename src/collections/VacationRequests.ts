@@ -20,11 +20,9 @@ export const VacationRequests: CollectionConfig = {
         },
       }
     },
-    access: {
-      update: ({ req, data }) => {
-        // Allow updates only if the user is not the requester
-        return req.user?.id !== data?.requester
-      },
+    update: ({req, data}) => {
+      // Allow updates only if the user is not the requester
+      return req.user?.id !== data?.requester
     },
   },
   fields: [
